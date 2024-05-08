@@ -1,6 +1,7 @@
-from django.shortcuts import render
 from django.contrib.postgres.search import TrigramSimilarity
-from .models import Movie
+from django.shortcuts import render, get_object_or_404
+from .models import Movie, Tag
+
 
 def movie_search(request):
     if request.method == 'POST':
@@ -12,5 +13,6 @@ def movie_search(request):
     return render(request, 'search_page.html', {})
 
 def recommendations(request, movie_id):
-    movie = Movie.objects.get(id=movie_id)
-    return render(request, 'recommendations_page.html', {'movie': movie})
+    movie = get_object_or_404(Movie, pk=movie_id)
+    tags = Tag.objects.filter(tag_id__in=movie.tags_ids)
+    return render(request, 'recommendations_page.html', {'movie': movie, 'tags': tags})
