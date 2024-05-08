@@ -3,7 +3,7 @@ Step 0: Download the following datasets and put them in the project repository:
 MovieLens 20M Dataset from https://grouplens.org/datasets/movielens/
 
 Posters from https://www.kaggle.com/datasets/ghrzarea/movielens-20m-posters-for-machine-learning
--> here only put the folder "MLP-20M" containing the images in the project repo
+-> here put (only) the folder "MLP-20M" containing the images into the folder "static" of the project
 
 Additional Movie Information from https://drive.google.com/file/d/1je77e0Lq8naVUsjoOzk5RuI2H3ceHlSz/view
 ________________________________________________________________________________________________________________________

@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 60%;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            background-color: #2c2c2c;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #605f5f;
+        }
+        .movies-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .movie-item {
+            margin: 10px;
+            text-align: center;
+        }
+        .movie-button {
+            padding: 0;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            width: 150px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .movie-button:focus {
+            outline: none;
+        }
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            width: 150px;
+            height: 200px;
+            border-radius: 10px;
+            background-color: #c9c9c9;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search Results</h1>
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="search_query" placeholder="Search...">
+            <button type="submit">Search</button>
+        </form>
+        {% if search_query %}
+            <p>Search results for "{{ search_query }}":</p>
+            <div class="movies-container">
+                {% for movie in movies %}
+                    <div class="movie-item">
+                        <button class="movie-button" onclick="window.location.href='{% url 'recommendations' movie.id %}'">
+                            <img src="{% static 'MLP-20M/' %}{{ movie.id }}.jpg" alt="{{ movie.title }}">
+                        </button>
+                    </div>
+                {% empty %}
+                    <p>No results found.</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
