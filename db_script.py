@@ -7,7 +7,7 @@ from psycopg2 import extras
 
 dbname = "rs_project"
 user = "postgres"
-password = "superuser"
+password = "" #PUT PASSWORD HERE
 host = "localhost"
 port = "5432"
 

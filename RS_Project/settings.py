@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'rs_project',
         'USER': 'postgres',
-        'PASSWORD': 'superuser',
+        'PASSWORD': '', #PUT PASSWORD HERE
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -126,6 +126,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

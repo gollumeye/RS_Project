@@ -1,6 +1,7 @@
 from django.contrib.postgres.search import TrigramSimilarity
 from django.shortcuts import render, get_object_or_404
 from .models import Movie, Tag
+from .recommendationAlgorithms.similarDescription import recommend_movies_by_description
 
 
 def movie_search(request):
@@ -15,4 +16,8 @@ def movie_search(request):
 def recommendations(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
     tags = Tag.objects.filter(tag_id__in=movie.tags_ids)
-    return render(request, 'recommendations_page.html', {'movie': movie, 'tags': tags})
+
+    movie_description = movie.overview
+    movies_with_similar_description = recommend_movies_by_description(movie_id, movie_description)
+
+    return render(request, 'recommendations_page.html', {'movie': movie, 'tags': tags, 'moviesWithSimilarDescription': movies_with_similar_description})

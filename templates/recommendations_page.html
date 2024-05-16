@@ -35,6 +35,24 @@
             text-align: center;
             margin-top: 20px;
         }
+        .scrollable {
+            overflow-x: auto;
+            white-space: nowrap;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        #recommendedImg {
+            display: inline-block;
+            martin-right: 10px;
+            vertical-align: top;
+            margin: 0 auto;
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
     </style>
 </head>
 <body>
@@ -57,6 +75,12 @@
         {% endfor %}
     </p>
         <h1>Similar Movie Recommendations:</h1>
+        <h3>1) Movies with Similar Descriptions: </h3>
+        <div class="scrollable">
+            {% for similar_movie in moviesWithSimilarDescription %}
+                <img id="recommendedImg" src="{% static 'MLP-20M/' %}{{ similar_movie.id }}.jpg" alt="{{ similar_movie.title }}">
+            {% endfor %}
+        </div>
     </div>
 </body>
 </html>
