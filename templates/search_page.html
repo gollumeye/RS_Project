@@ -77,6 +77,22 @@
             background-color: #c9c9c9;
 
         }
+        #loading {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        input[type="text"][disabled] {
+            background-color: #f2f2f2;
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        button[type="submit"][disabled] {
+            background-color: #ddd;
+            color: #999;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -88,19 +104,45 @@
             <button type="submit">Search</button>
         </form>
         {% if search_query %}
-            <p>Search results for "{{ search_query }}":</p>
+            <p id="search-results-text">Search results for "{{ search_query }}":</p>
             <div class="movies-container">
                 {% for movie in movies %}
                     <div class="movie-item">
-                        <button class="movie-button" onclick="window.location.href='{% url 'recommendations' movie.id %}'">
+                        <button class="movie-button" onclick="handleMovieSelection('{{ movie.id }}')">
                             <img src="{% static 'MLP-20M/' %}{{ movie.id }}.jpg" alt="{{ movie.title }}">
                         </button>
+
                     </div>
                 {% empty %}
                     <p>No results found.</p>
                 {% endfor %}
             </div>
         {% endif %}
+        <div id="loading">Loading...</div>
     </div>
+<script>
+    //when a movie is selected:
+        //show text "loading"
+        //clear search results
+        //disable (&reset) inputfield and button
+    function handleMovieSelection(movieId) {
+        document.getElementById("loading").style.display = "block";
+
+        const searchInput = document.getElementsByName("search_query")[0];
+        searchInput.value = "";
+        searchInput.disabled = true;
+
+        const searchButton = document.querySelector("button[type='submit']");
+        searchButton.disabled = true;
+
+        document.getElementById("search-results-text").style.display = "none";
+        document.querySelector(".movies-container").style.display = "none";
+
+        window.location.href = `/recommendations/${movieId}`;
+    }
+</script>
+
+
+
 </body>
 </html>
