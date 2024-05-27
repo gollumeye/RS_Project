@@ -5,18 +5,18 @@ import os
 import psycopg2
 from psycopg2 import extras
 
-dbname = "rs_project"
+dbname = "postgres"
 user = "postgres"
-password = "" #PUT PASSWORD HERE
+password = "postgres" #PUT PASSWORD HERE
 host = "localhost"
 port = "5432"
 
 conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host, port=port)
 cur = conn.cursor()
 
-ratings_file = "ml-20m/ml-20m/ratings.csv"
-tags_file = "ml-20m/ml-20m/genome-tags.csv"
-genome_scores_file = "ml-20m/ml-20m/genome-scores.csv"
+ratings_file = "ml-20m/ratings.csv"
+tags_file = "ml-20m/genome-tags.csv"
+genome_scores_file = "ml-20m/genome-scores.csv"
 movie_details_path = "extracted_content_ml-latest"
 
 # ---------------------------------------------------------------
