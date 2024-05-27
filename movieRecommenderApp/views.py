@@ -15,6 +15,8 @@ def movie_search(request):
 
 def recommendations(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
+    if movie.tags_ids is None:
+        movie.tags_ids = []
     tags = Tag.objects.filter(tag_id__in=movie.tags_ids)
 
     movie_description = movie.overview
