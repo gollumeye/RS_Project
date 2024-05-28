@@ -181,13 +181,68 @@
             <span class="recommended-title">
               {{ similar_movie.title }}
           </span>
-
         </a>
-
-
         {% endfor %}
 
     </div>
+<h3>2) Movies with Similar Content (Tags & Genres): </h3>
+    <div class="scrollable">
+        {% for similar_movie in moviesWithSimilarContent %}
+        <a href="/recommendations/{{similar_movie.id}}" class="recommended">
+
+                <img class="recommended-img" src="{% static 'MLP-20M/' %}{{ similar_movie.id }}.jpg"
+                     onerror="this.onerror=null;this.src='/static/assets/placeholder.jpeg';"
+                     >
+
+            <span class="recommended-title">
+              {{ similar_movie.title }}
+          </span>
+        </a>
+        {% endfor %}
+    </div>
+<h3>3) Movies with Similar Actors and Directors: </h3>
+    <div class="scrollable">
+        {% for similar_movie in moviesWithSimilarPersonsInvolved %}
+        <a href="/recommendations/{{similar_movie.id}}" class="recommended">
+                <img class="recommended-img" src="{% static 'MLP-20M/' %}{{ similar_movie.id }}.jpg"
+                     onerror="this.onerror=null;this.src='/static/assets/placeholder.jpeg';"
+                     >
+            <span class="recommended-title">
+              {{ similar_movie.title }}
+          </span>
+        </a>
+        {% endfor %}
+    </div>
+
+<h3>4) Movies with Ratings: </h3>
+    <div class="scrollable">
+        {% for similar_movie in similarMoviesByRatings %}
+        <a href="/recommendations/{{similar_movie.id}}" class="recommended">
+
+                <img class="recommended-img" src="{% static 'MLP-20M/' %}{{ similar_movie.id }}.jpg"
+                     onerror="this.onerror=null;this.src='/static/assets/placeholder.jpeg';"
+                     >
+            <span class="recommended-title">
+              {{ similar_movie.title }}
+          </span>
+        </a>
+        {% endfor %}
+    </div>
+
+<h3>5) Popular movies released in the same year: </h3>
+    <div class="scrollable">
+        {% for similar_movie in popularMoviesOfSameYear %}
+        <a href="/recommendations/{{similar_movie.id}}" class="recommended">
+                <img class="recommended-img" src="{% static 'MLP-20M/' %}{{ similar_movie.id }}.jpg"
+                     onerror="this.onerror=null;this.src='/static/assets/placeholder.jpeg';"
+                     >
+            <span class="recommended-title">
+              {{ similar_movie.title }}
+          </span>
+        </a>
+        {% endfor %}
+    </div>
+
 </div>
 </body>
 </html>

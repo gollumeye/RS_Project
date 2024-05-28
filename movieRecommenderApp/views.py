@@ -1,7 +1,11 @@
 from django.contrib.postgres.search import TrigramSimilarity
 from django.shortcuts import render, get_object_or_404
 from .models import Movie, Tag
-from .recommendationAlgorithms.similarDescription import recommend_movies_by_description
+from .recommendationAlgorithms.similarDescription import recommend_similar_movies_by_description
+from .recommendationAlgorithms.popularMoviesOfSameYear import recommend_popular_movie_of_same_year
+from .recommendationAlgorithms.similarMoviesByRatings import recommend_movies_by_ratings
+from .recommendationAlgorithms.similarContent import recommend_movies_with_similar_content
+from .recommendationAlgorithms.similarPersons import recommend_movies_with_similar_persons_involved
 
 
 def movie_search(request):
@@ -19,7 +23,13 @@ def recommendations(request, movie_id):
         movie.tags_ids = []
     tags = Tag.objects.filter(tag_id__in=movie.tags_ids)
 
-    movie_description = movie.overview
-    movies_with_similar_description = recommend_movies_by_description(movie_id, movie_description)
+    movies_with_similar_description = recommend_similar_movies_by_description(movie)
+    movies_with_similar_content = recommend_movies_with_similar_content(movie) #TODO
+    movies_with_similar_persons = recommend_movies_with_similar_persons_involved(movie) #TODO
+    similar_movies_based_on_ratings = recommend_movies_by_ratings(movie) #TODO
+    popular_movies_of_same_year = recommend_popular_movie_of_same_year(movie) #TODO
 
-    return render(request, 'recommendations_page.html', {'movie': movie, 'tags': tags, 'moviesWithSimilarDescription': movies_with_similar_description})
+    #note: maybe combine ratings with popular movies?
+    #and try different similarity algorithms: cosine, jaccard similarity, euclidian/manhattan?,
+
+    return render(request, 'recommendations_page.html', {'movie': movie, 'tags': tags, 'moviesWithSimilarDescription': movies_with_similar_description, 'moviesWithSimilarContent': movies_with_similar_content, 'moviesWithSimilarPersonsInvolved': movies_with_similar_persons, 'similarMoviesByRatings': similar_movies_based_on_ratings, 'popularMoviesOfSameYear': popular_movies_of_same_year})

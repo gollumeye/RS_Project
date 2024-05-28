@@ -3,9 +3,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 from movieRecommenderApp.models import Movie
 
 
-def recommend_movies_by_description(movie_id, movie_description):
-
-    movies_query = Movie.objects.exclude(pk=movie_id) \
+def recommend_similar_movies_by_description(movie):
+    movies_query = Movie.objects.exclude(pk=movie.id) \
         .exclude(overview__isnull=True) \
         .exclude(overview__exact='')
 
@@ -15,7 +14,7 @@ def recommend_movies_by_description(movie_id, movie_description):
 
     tfidf_vectorizer = TfidfVectorizer(stop_words='english')
     tfidf_matrix = tfidf_vectorizer.fit_transform(movie_descriptions)
-    tfidf_vector = tfidf_vectorizer.transform([movie_description])
+    tfidf_vector = tfidf_vectorizer.transform([movie.overview])
     cosine_similarities = cosine_similarity(tfidf_vector, tfidf_matrix).flatten()
     
     similar_movie_indizes = cosine_similarities.argsort()[:-6:-1] #first 5 movies
