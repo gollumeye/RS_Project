@@ -26,7 +26,7 @@ def recommend_movies_with_similar_content(movie):
 
     chosen_movie_genres = set(movie.genres) if movie.genres else set()
     chosen_movie_tags_ids = set(movie.tags_ids) if movie.tags_ids else set()
-    if len(chosen_movie_genres) is 0 and len(chosen_movie_tags_ids) == 0: #cannot recommend if chosen movie has no genres or tags
+    if len(chosen_movie_genres) == 0 and len(chosen_movie_tags_ids) == 0: #cannot recommend if chosen movie has no genres or tags
         return recommend_popular_movies_of_same_year(movie) #fallback recommendation algorithm
 
     similar_movies = []

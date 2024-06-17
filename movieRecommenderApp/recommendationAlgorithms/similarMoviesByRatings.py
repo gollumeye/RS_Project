@@ -8,7 +8,7 @@ If the selected movie has no user ratings, the popularMoviesOfSameYear() algorit
 def recommend_movies_by_ratings(movie):
     ratings = Rating.objects.filter(movie_id=movie.id)
 
-    if len(ratings) is 0:
+    if len(ratings) == 0:
         return recommend_popular_movies_of_same_year(movie)
 
     user_ids = ratings.values_list('user_id', flat=True).distinct() #get all users that have rated the movie
